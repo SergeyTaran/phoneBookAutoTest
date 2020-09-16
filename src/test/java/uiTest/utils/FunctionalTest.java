@@ -1,4 +1,4 @@
-package utils;
+package uiTest.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -20,18 +20,19 @@ import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 
-
-
 public class FunctionalTest {
+    private static final String PATH_TO_DRIVER = "C:\\soft\\chromedriver.exe";
+
     protected static WebDriver driver;
     protected final Logger logger = LogManager.getLogger(getClass());
+
     @Rule
     public final TestRule watchman = new TestWatcher() {
         // This method gets invoked if the test fails for any reason:
         @Override
         protected void failed(Throwable e, Description description) {
             // Print out the error message:
-            System.out.println(description.getDisplayName() + " " + e.getClass().getSimpleName() + "\n");
+            logger.info(description.getDisplayName() + " " + e.getClass().getSimpleName() + "\n");
             // Now you can do whatever you need to do with it, for example take a screenshot
             takeScreenShot(description.getDisplayName());
         }
@@ -39,7 +40,7 @@ public class FunctionalTest {
 
     @BeforeClass
     public static void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:\\soft\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", PATH_TO_DRIVER);
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -48,7 +49,7 @@ public class FunctionalTest {
 
     @AfterClass
     public static void tearDown() {
-        //  driver.quit();
+//          driver.quit();
     }
 
     private void takeScreenShot(String methodName) {

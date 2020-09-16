@@ -1,4 +1,4 @@
-package utils;
+package uiTest.utils;
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -12,10 +12,12 @@ public class PageObject {
     private static final String ERROR_START = "\n\nElement not found in: ";
     private static final String ERROR_MIDDLE = " within: ";
     private static final String ERROR_END = " seconds!\n\n";
-    public PageObject(WebDriver driver){
+
+    public PageObject(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
     public void waitForElementIsDispalyed(int seconds, WebElement element) {
         WebDriverWait wait = (WebDriverWait) new WebDriverWait(driver, seconds)
                 .ignoring(StaleElementReferenceException.class);
