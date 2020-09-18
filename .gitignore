@@ -5,3 +5,5 @@
 .classpath
 /.gradle/
 /src/screenshots/
+build/generated/
+build/tmp/

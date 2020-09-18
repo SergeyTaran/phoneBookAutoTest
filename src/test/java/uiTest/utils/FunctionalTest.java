@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class FunctionalTest {
-    private static final String PATH_TO_DRIVER = "C:\\soft\\chromedriver.exe";
+    private static final String PATH_TO_DRIVER = "C:\\opt\\chromedriver.exe";
 
     protected static WebDriver driver;
     protected final Logger logger = LogManager.getLogger(getClass());
@@ -49,7 +49,7 @@ public class FunctionalTest {
 
     @AfterClass
     public static void tearDown() {
-//          driver.quit();
+        driver.quit();
     }
 
     private void takeScreenShot(String methodName) {
