@@ -3,3 +3,5 @@
 /tmp
 .project
 .classpath
+/.gradle/
+/src/screenshots/
