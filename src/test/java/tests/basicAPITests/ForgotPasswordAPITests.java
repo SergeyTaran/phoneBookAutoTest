@@ -11,18 +11,20 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import utils.FunctionalAPITest;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.PortUnreachableException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static utils.Constants.*;
 
 public class ForgotPasswordAPITests extends FunctionalAPITest {
@@ -42,7 +44,7 @@ public class ForgotPasswordAPITests extends FunctionalAPITest {
     HttpPut putRequest;
 
 
-    String token = "263fb82e-ee0e-4132-824a-3bc47b579802";
+    String token = "be25cc22-b25c-4541-8755-13fe6e60ca13";
 
 
     @Before
@@ -50,6 +52,12 @@ public class ForgotPasswordAPITests extends FunctionalAPITest {
         client = HttpClientBuilder.create().build();
         postRequest = new HttpPost(passForgotAPIUrl);
         postRequest.addHeader("Content-Type", "application/json");
+    }
+
+    @After
+    public void afterTest() throws IOException {
+        client.close();
+        System.out.println("client closed");
     }
 
     @Test
@@ -69,6 +77,15 @@ public class ForgotPasswordAPITests extends FunctionalAPITest {
         String json = "{\"password\":\"" + passwordExisted + "\"" + "," + "\"token\":\"" + token + "\"}";
         putRequest.setEntity(new StringEntity(json));
         response = client.execute(putRequest);
+        JSONObject jsonObject = getJsonFromResponse(response);
+        LOGGER_API.info(jsonObject.toString());
+        try {
+            assertEquals(200, response.getStatusLine().getStatusCode());
+        }catch (AssertionError tokenError){
+            LOGGER_API.info("token not found");
+            assertEquals("Your link is not active anymore", jsonObject.getString("message"));
+            fail();
+        }
 
         assertEquals(200, response.getStatusLine().getStatusCode());
     }

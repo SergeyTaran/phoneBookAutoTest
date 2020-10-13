@@ -37,7 +37,7 @@ public class LoginAPITests extends FunctionalAPITest {
     }
 
     private void userAuthorization(String token) throws IOException {
-        getRequest = new HttpGet(basicUrl);
+        getRequest = new HttpGet(basicAPIUrl);
         getRequest.setHeader("access-token", token);
         response = client.execute(getRequest);
     }

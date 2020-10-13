@@ -35,6 +35,8 @@ public class RegistrationPage extends PageObject {
     private WebElement passIsEmptyErrMsg;
 
 
+
+
     public String getErrTextEmail() {
         return emailErrMsg.getText();
     }

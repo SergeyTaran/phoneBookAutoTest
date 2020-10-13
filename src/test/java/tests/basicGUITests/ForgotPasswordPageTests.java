@@ -2,6 +2,7 @@ package tests.basicGUITests;
 
 import org.junit.Before;
 import org.junit.Test;
+import pages.EmailPage;
 import pages.ForgotPasswordPage;
 import utils.FunctionalTest;
 import static org.junit.Assert.assertEquals;
@@ -11,6 +12,8 @@ import static utils.Constants.*;
 public class ForgotPasswordPageTests extends FunctionalTest {
 
     ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
+
+    //  5
 
     @Before
     public void init(){
@@ -30,11 +33,22 @@ public class ForgotPasswordPageTests extends FunctionalTest {
     }
 
     @Test
-    public void testRetrievePass(){
-        forgotPasswordPage.resetPass(userExisted);
+    public void testRetrievePassGetToken(){
+        forgotPasswordPage.resetPass(userMailRu);
 
-        assertEquals("Password recovery instructions have been sent to " + userExisted + ".", forgotPasswordPage.getTextConfStringPassChanged());
+        assertEquals("Password recovery instructions have been sent to " + userMailRu + ".", forgotPasswordPage.getTextConfStringPassChanged());
         assertEquals(forgotPassUrl, getUrl());
+
+    }
+
+    @Test //  ------------------------------------------------------------
+    public void  testRetrievePassSetNewPass(){
+        EmailPage emailPage = new EmailPage(driver);
+        emailPage.getEnterNewPassUrl();
+        ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
+        forgotPasswordPage.setNewPass(passwordExisted, passwordExisted);
+
+        assertEquals("Password changed successfully", forgotPasswordPage.getTextConfStringPassChanged());
 
     }
 

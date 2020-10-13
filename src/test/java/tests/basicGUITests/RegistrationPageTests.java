@@ -2,6 +2,7 @@ package tests.basicGUITests;
 
 import org.junit.Before;
 import org.junit.Test;
+import pages.EmailPage;
 import pages.RegistrationConfirmationPage;
 import pages.RegistrationPage;
 import utils.FunctionalTest;
@@ -24,7 +25,17 @@ public class RegistrationPageTests extends FunctionalTest {
 //  11
     @Test
     public void testCreateUser() {
-        RegistrationConfirmationPage confirmationPage = registrationPage.register(newRandomUser, newRandomPass, confPassword);
+        RegistrationConfirmationPage confirmationPage = registrationPage.register(newRandomUser, passwordExisted, passwordExisted);
+
+        assertEquals("Please, check your email and activate your account.", confirmationPage.getConfirmationText());
+        assertEquals(confirmRegUrl, getUrl());
+        logger.info("Valid login registration test passed");
+
+    }
+
+    @Test
+    public void testCreateUserUpCase(){
+        RegistrationConfirmationPage confirmationPage = registrationPage.register("TRTRTRR@TRTR.gmail.com", passwordExisted, passwordExisted);
 
         assertEquals("Please, check your email and activate your account.", confirmationPage.getConfirmationText());
         assertEquals(confirmRegUrl, getUrl());
