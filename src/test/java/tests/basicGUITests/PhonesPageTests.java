@@ -2,7 +2,6 @@ package tests.basicGUITests;
 
 import org.junit.Before;
 import org.junit.Test;
-import pages.ContactsPage;
 import pages.LoginPage;
 import pages.PhonesPage;
 import utils.FunctionalTest;
