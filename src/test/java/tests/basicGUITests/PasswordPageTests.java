@@ -2,71 +2,68 @@ package tests.basicGUITests;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import pages.ContactsPage;
 import pages.LoginPage;
 import pages.PasswordPage;
 import utils.FunctionalTest;
 
 import static org.junit.Assert.assertEquals;
-import static pages.ContactsPage.*;
-import static pages.PasswordPage.*;
 import static utils.Constants.*;
+
 
 public class PasswordPageTests extends FunctionalTest {
 
-
     LoginPage loginPage = new LoginPage(driver);
+//    ContactsPage contactsPage = new ContactsPage(driver);
     PasswordPage passwordPage = new PasswordPage(driver);
-    ContactsPage contactsPage = new ContactsPage(driver);
+
 
     @Before
     public void init() {
-        driver.get(passwordPageUrl);
+        driver.get(loginUrl);
+        loginPage.login(userExisted, passwordExisted);
+
     }
 
     @Test
-    public void test001_changePassword(){
+    public void test001_password_changePassword(){
         passwordPage.changePassword(passwordExisted, passwordExisted);
 
-        assertEquals(passwordPageUrl, driver.getCurrentUrl());
-        assertEquals("Your password has been successfully changed", passwordPage.getTextSuccessMsg());
+        assertEquals("Your password has been successfully changed", passwordPage.getTextConfMsg());
+        assertEquals(passwordPageUrl, getUrl());
     }
 
     @Test
-    public void test002_changePasswordTooShort(){
+    public void test002_password_changePassword_PassTooShort(){
+        passwordPage.changePasswordNewPass(shortPass);
 
-        loginPage.login(userExisted, passwordExisted);
-        accountBtn.click();
-        passwordNewField.sendKeys(shortPass);
-
-        assertEquals("Password must be at least 8 characters.", loginPage.getErrTextShortPass());
-        assertEquals(false, passwordPage.checkSubmitBtn());
-        assertEquals(passwordPageUrl, driver.getCurrentUrl());
-
+        assertEquals("Password must be at least 8 characters.", PasswordPage.errMinLengthMsg.getText());
+        assertEquals(passwordPageUrl, getUrl());
     }
 
     @Test
-    public void test003_changePasswordTooLong(){
-        loginPage.login(userExisted, passwordExisted);
-        accountBtn.click();
-        passwordNewField.sendKeys(longPass);
+    public void test003_password_changePassword_PassTooLong(){
+        passwordPage.changePasswordNewPass(longPass);
 
-        assertEquals("Password must be at least 20 characters.", loginPage.getErrTextLongPass());
-        assertEquals(false, passwordPage.checkSubmitBtn());
-        assertEquals(passwordPageUrl, driver.getCurrentUrl());
+        assertEquals("Password must be at least 20 characters.", PasswordPage.errMaxLengthMsg.getText());
+        assertEquals(passwordPageUrl, getUrl());
     }
 
     @Test
-    public void test004_changePasswordNotMatch(){
-        loginPage.login(userExisted, passwordExisted);
-        accountBtn.click();
-        passwordNewField.sendKeys(passwordExisted + "1");
-        passwordConfirmField.sendKeys(passwordExisted);
+    public void test004_password_changePassword_PassNotMatch(){
+        passwordPage.changePassword(passwordExisted, longPass);
 
-
-        assertEquals("Passwords do not match.", errorMsg.getText());
-        assertEquals(false, passwordPage.checkSubmitBtn());
-        assertEquals(passwordPageUrl, driver.getCurrentUrl());
+        assertEquals("Passwords do not match.", PasswordPage.errPassNotMatchMsg.getText());
+        assertEquals(passwordPageUrl, getUrl());
     }
 
+    @Test
+    public void test005_password_changePassword_EmptyField(){
+        passwordPage.changePasswordNewPass("");
+        driver.findElement(By.xpath("/html/body/app-root/app-home-page/div/app-user-details-pgae/div/div[2]/div/app-account-password/div[1]")).click();
+
+        assertEquals("Password is required.", PasswordPage.errPassRequiredMsg.getText());
+        assertEquals(passwordPageUrl, getUrl());
+    }
 }

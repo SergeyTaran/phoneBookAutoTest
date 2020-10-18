@@ -25,34 +25,44 @@ public class PhonesPageTests extends FunctionalTest {
     }
 
     @Test
-    public void test001_Contacts_AddPhone(){
+    public void test001_contacts_addPhone_editPhone_deletePhone(){
         phonesPage.addPhone(contactPhone);
 
         assertEquals(true, confStringPhoneSaved.isDisplayed());
         phonesPage.closeAddPhoneWin();
 
         assertEquals(contactPhone, phoneNumberField.getText());
-        assertEquals(true, editPhoneBtn.isEnabled());
+        assertEquals(true, managePhoneBtn.isEnabled());
 
-    }
-
-    @Test
-    public void test002_Contacts_EditPhone(){
         phonesPage.editPhone(contactPhone);
 
         assertEquals(true, confStringPhoneSaved2.isDisplayed());
         assertEquals(true, logoutBtn.isEnabled());
 
-    }
-
-    @Test
-    public void test003_Contacts_DeletePhone(){
         phonesPage.deletePhone();
 
-        assertEquals("No results", phonesPage.getTextNoResults());
+        assertEquals(true, phonesPage.noResultsIsDisplayed());
         assertEquals(true, logoutBtn.isEnabled());
 
     }
+
+//    @Test
+//    public void test002_Contacts_EditPhone(){
+//        phonesPage.editPhone(contactPhone);
+//
+//        assertEquals(true, confStringPhoneSaved2.isDisplayed());
+//        assertEquals(true, logoutBtn.isEnabled());
+//
+//    }
+
+//    @Test
+//    public void test003_Contacts_DeletePhone(){
+//        phonesPage.deletePhone();
+//
+//        assertEquals(true, phonesPage.noResultsIsDisplayed());
+//        assertEquals(true, logoutBtn.isEnabled());
+//
+//    }
 
     @Test
     public void test004_Contacts_LinksAreActive(){
@@ -66,7 +76,7 @@ public class PhonesPageTests extends FunctionalTest {
     public void test005_Contacts_EditNotExistedPhone(){
         phonesPage.getPhoneTab();
 
-        assertEquals("No results", phonesPage.getTextNoResults());
+        assertEquals(true, phonesPage.noResultsIsDisplayed());
         assertEquals(true, logoutBtn.isEnabled());
     }
 
@@ -99,4 +109,7 @@ public class PhonesPageTests extends FunctionalTest {
         assertEquals("Add new phone", phonesPage.getTextAddPhonePageTitle());
 
     }
+
+
+
 }

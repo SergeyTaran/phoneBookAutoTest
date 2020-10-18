@@ -35,7 +35,7 @@ public class RegistrationPageTests extends FunctionalTest {
 
     @Test
     public void testCreateUserUpCase(){
-        RegistrationConfirmationPage confirmationPage = registrationPage.register("TRTRTRR@TRTR.gmail.com", passwordExisted, passwordExisted);
+        RegistrationConfirmationPage confirmationPage = registrationPage.register("TRTRRTR@TRTR.gmail.com", passwordExisted, passwordExisted);
 
         assertEquals("Please, check your email and activate your account.", confirmationPage.getConfirmationText());
         assertEquals(confirmRegUrl, getUrl());

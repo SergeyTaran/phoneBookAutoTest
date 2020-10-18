@@ -8,29 +8,29 @@ import utils.PageObject;
 public class LoginPage extends PageObject {
 
     @FindBy(xpath = "/html/body/app-root/app-home-page/app-header/nav/div/div/button[2]")
-    private WebElement logoutBtn;
+    public static WebElement logoutBtn;
     @FindBy(id = "defaultRegisterFormEmail")
-    private WebElement loginField;
+    public static WebElement loginField;
     @FindBy(xpath = "//*[@id=\"login-form\"]/div[2]/div[1]/div/input")
-    private WebElement passwordField;
+    public static WebElement passwordField;
     @FindBy(xpath = "//*[@id=\"login-form\"]/div[3]/div[1]/button")
-    private WebElement loginBtn;
+    public static WebElement loginBtn;
     @FindBy(id = "password-error-minlength")
-    private WebElement passShortErrMsg;
+    public static WebElement passShortErrMsg;
     @FindBy(id = "password-error-maxlength")
-    private WebElement passLongErrMsg;
+    public static WebElement passLongErrMsg;
     @FindBy(id = "email-error-required")
-    private WebElement emailIsEmptyErrMsg;
+    public static WebElement emailIsEmptyErrMsg;
     @FindBy(id = "error-message")
-    private WebElement notExistsErrMsg;
+    public static WebElement notExistsErrMsg;
     @FindBy(id = "password-error-required")
-    private WebElement passIsEmptyErrMsg;
+    public static WebElement passIsEmptyErrMsg;
     @FindBy(xpath = "/html/body/app-root/app-login/div/div[1]/div/div/a[1]")
-    private WebElement regNewAccLink;
+    public static WebElement regNewAccLink;
     @FindBy(xpath = "/html/body/app-root/app-login/div/div[1]/div/div/a[2]")
-    private WebElement forgotPassLink;
+    public static WebElement forgotPassLink;
     @FindBy (id = "email-error-invalid")
-    private WebElement emailInvalidErrMsg;
+    public static WebElement emailInvalidErrMsg;
 
 
 

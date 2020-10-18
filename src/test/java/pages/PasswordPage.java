@@ -5,50 +5,52 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.PageObject;
 
-import static pages.ContactsPage.accountBtn;
-import static utils.Constants.*;
+import static pages.ContactsPage.*;
+import static pages.ForgotPasswordPage.*;
 
 public class PasswordPage extends PageObject {
-
-
 
     public PasswordPage(WebDriver driver) {
         super(driver);
     }
 
     @FindBy(xpath = "//*[@id=\"pass-change-form\"]/div[1]/input")
-    public static WebElement passwordNewField;
+    public static WebElement newPassField;
     @FindBy(xpath = "//*[@id=\"pass-change-form\"]/div[2]/input")
-    public static WebElement passwordConfirmField;
+    public static WebElement confirmPassField;
     @FindBy(xpath = "//*[@id=\"pass-change-form\"]/button")
-    public static WebElement passwordSubmitBtn;
+    public static WebElement submitPassBtn;
     @FindBy(id = "success-message")
-    public static WebElement successMsg;
+    public static WebElement confMsg;
+    @FindBy(id = "password-error-minlength")
+    public static WebElement errMinLengthMsg;
+    @FindBy(id = "password-error-maxlength")
+    public static WebElement errMaxLengthMsg;
     @FindBy(id = "password-confirm-error-matcher")
-    public static WebElement errorMsg;
+    public static WebElement errPassNotMatchMsg;
+    @FindBy(id = "password-error-required")
+    public static WebElement errPassRequiredMsg;
 
 
-    public void changePassword(String password, String confirmPassword){
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.login(userExisted, passwordExisted);
-        ContactsPage contactsPage = new ContactsPage(driver);
+
+    public void changePassword(String password, String confirmPass){
+        changePasswordNewPass(password);
+        changePasswordConfPass(confirmPass);
+    }
+
+    public void changePasswordNewPass(String password){
         accountBtn.click();
-        passwordNewField.sendKeys(password);
-        passwordConfirmField.sendKeys(confirmPassword);
-        passwordSubmitBtn.click();
+        newPassField.sendKeys(password);
 
     }
 
-    public String getTextSuccessMsg(){
-        return successMsg.getText();
+    public void changePasswordConfPass(String confirmPass){
+        confirmPassField.sendKeys(confirmPass);
+        submitPassBtn.click();
     }
 
-    public boolean checkSubmitBtn(){
-        return passwordSubmitBtn.isEnabled();
+    public String getTextConfMsg(){
+        return confMsg.getText();
 
     }
-
-
-
-
 }

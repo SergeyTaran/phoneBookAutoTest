@@ -1,9 +1,16 @@
 package utils;
 
+import com.github.javafaker.Faker;
 import pages.ContactsPage;
+
+import java.util.Random;
 
 public class Constants {
 
+    public static Faker faker = new Faker();
+
+
+    public static Random random = new Random();
     public static String basicUrl = "http://dev.phonebook-1.telran-edu.de/";
 
 //    ------------  EmailPage  ---------------
@@ -15,6 +22,7 @@ public class Constants {
 //    ------------------- ForgotPasswordPage --------------------------
 
     public static String forgotPassUrl = basicUrl + "user/forgot-password";
+    public static String passRecoveryUrl = basicUrl + "user/password-recovery/";
 
 //    ------------------  LoginPage  -------------------
 
@@ -47,11 +55,20 @@ public class Constants {
     public static String contactsUrl = basicUrl + "contacts";
     public static String contactName = "user # " + System.currentTimeMillis();
     public static String contactAbout = "this contact created for testing";
-    public static String contactPhone = (int) (Math.random()*(1111111111+1)) + 200 +"";
+    public static String fakerPhone = faker.phoneNumber().subscriberNumber();
+    public static String contactPhone = random.nextInt(999999999)+"";
 
 //    -------------------  PasswordPage  -------------------------
 
     public static String passwordPageUrl = basicUrl + "account/password";
+
+//        -------------------  AddressesPage  -------------------------
+
+    public static String AddressesPageUrl = basicUrl + "account/password";
+
+
+
+
 
 
 

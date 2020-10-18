@@ -27,8 +27,8 @@ public class PhonesPage extends PageObject {
     public static WebElement closeAddPhoneBtn;
     @FindBy(xpath = "//*[@id=\"items-table-phone\"]/tbody/tr/td[2]/ngb-highlight")
     public static WebElement phoneNumberField;
-    @FindBy(xpath = "//*[@id=\"items-table-phone\"]/tbody/tr[1]/td[3]/button")
-    public static WebElement editPhoneBtn;
+    @FindBy(xpath = "//*[@id=\"items-table-phone\"]/tbody/tr/td[3]/button")
+    public static WebElement managePhoneBtn;
     @FindBy(xpath = "//*[@id=\"items-table-phone\"]/tbody/tr/td[3]/div/button[2]")
     public static WebElement removeBtn;
     @FindBy(xpath = "//*[@id=\"items-table-phone\"]/tbody/tr/td[3]/div/button[1]")
@@ -45,12 +45,10 @@ public class PhonesPage extends PageObject {
     public static WebElement confStringPhoneSaved;
     @FindBy(xpath = "/html/body/ngb-modal-window/div/div/app-phone-edit-modal/div[2]/p/ngb-alert")
     public static WebElement confStringPhoneSaved2;
-    @FindBy(xpath = "//*[@id=\"contacts-list\"]/app-contact-item/button")
+    @FindBy(xpath = "//*[@id=\"contacts-list\"]/div[1]/app-contact-item/div/button[1]")
     public static WebElement contactExisted;
     @FindBy(id = "ngb-nav-3")
     public static WebElement contactLinkPhone;
-    @FindBy(id = "ngb-nav-action")
-    public static WebElement actionBtn;
     @FindBy(id = "btn-add-phone")
     public static WebElement addPhoneBtn;
 
@@ -60,7 +58,6 @@ public class PhonesPage extends PageObject {
     public void addPhone(String phone){
         contactExisted.click();
         contactLinkPhone.click();
-        actionBtn.click();
         addPhoneBtn.click();
         countryCodeList.click();
         countryAustria.click();
@@ -74,9 +71,8 @@ public class PhonesPage extends PageObject {
     }
 
     public void deletePhone(){
-        contactExisted.click();
-        contactLinkPhone.click();
-        editPhoneBtn.click();
+        closeAddPhoneBtn.click();
+        managePhoneBtn.click();
         removeBtn.click();
 
     }
@@ -85,10 +81,13 @@ public class PhonesPage extends PageObject {
         return driver.findElement(By.xpath("//*[@id=\"ngb-nav-3-panel\"]/app-phone/div[2]/ngb-alert/b")).getText();
     }
 
+    public boolean noResultsIsDisplayed(){
+        driver.findElement(By.xpath("//*[@id=\"ngb-nav-3-panel\"]/app-phone/div[2]/ngb-alert/b")).isDisplayed();
+        return true;
+    }
+
     public void editPhone(String newPhone){
-        contactExisted.click();
-        contactLinkPhone.click();
-        editPhoneBtn.click();
+        managePhoneBtn.click();
         edit.click();
         countryCodeList.click();
         countryUkraine.click();

@@ -39,6 +39,14 @@ public class ContactsPage extends PageObject {
     public static WebElement contactSavedMsg;
     @FindBy(xpath = "//*[@id=\"add-contact-modal\"]/a/span")
     public static WebElement closeBtn;
+    @FindBy(xpath = "//*[@id=\"contacts-list\"]/div[1]/app-contact-item/div/button[2]/img")
+    public static WebElement deleteRandomContactBtn;
+    @FindBy(id = "check-box-remove-contact")
+    public static WebElement confCheckBox;
+    @FindBy(id = "submit-remove")
+    public static WebElement submitRemoveContactBtn;
+    @FindBy(id = "input-search-contact")
+    public static WebElement contactSearchField;
 
 
 
@@ -49,7 +57,7 @@ public class ContactsPage extends PageObject {
       * @return number of contacts
      */
     public static int getContactsListSize(){
-        return contactsList.findElements(By.tagName("div")).size();
+        return contactsList.findElements(By.tagName("div")).size()/2 - 1;
     }
 
     public boolean linksAndBtnsAreActive(){
@@ -70,7 +78,11 @@ public class ContactsPage extends PageObject {
 
     }
 
-
+    public void deleteRandomContact(){
+        deleteRandomContactBtn.click();
+        confCheckBox.click();
+        submitRemoveContactBtn.click();
+    }
 
 
 
